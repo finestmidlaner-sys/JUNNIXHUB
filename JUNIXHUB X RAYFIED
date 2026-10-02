@@ -1,0 +1,237 @@
+--// JUNIX HUB - Rayfield-Style GUI
+--// Visual GUI only: no gameplay automation
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+--// ScreenGui
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "JUNIX_HUB"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = player:WaitForChild("PlayerGui")
+
+--// Main Window
+local Main = Instance.new("Frame")
+Main.Name = "MainWindow"
+Main.Size = UDim2.new(0, 850, 0, 520)
+Main.Position = UDim2.new(0.5, -425, 0.5, -260)
+Main.BackgroundColor3 = Color3.fromRGB(7, 12, 24)
+Main.BorderSizePixel = 0
+Main.Parent = ScreenGui
+
+local MainCorner = Instance.new("UICorner")
+MainCorner.CornerRadius = UDim.new(0, 14)
+MainCorner.Parent = Main
+
+local MainStroke = Instance.new("UIStroke")
+MainStroke.Color = Color3.fromRGB(0, 140, 255)
+MainStroke.Thickness = 1.5
+MainStroke.Parent = Main
+
+--// Top Bar
+local TopBar = Instance.new("Frame")
+TopBar.Size = UDim2.new(1, 0, 0, 70)
+TopBar.BackgroundColor3 = Color3.fromRGB(10, 18, 34)
+TopBar.BorderSizePixel = 0
+TopBar.Parent = Main
+
+local Logo = Instance.new("TextLabel")
+Logo.Size = UDim2.new(0, 350, 1, 0)
+Logo.Position = UDim2.new(0, 25, 0, 0)
+Logo.BackgroundTransparency = 1
+Logo.Text = "JUNIX HUB"
+Logo.TextColor3 = Color3.fromRGB(40, 170, 255)
+Logo.Font = Enum.Font.GothamBlack
+Logo.TextSize = 32
+Logo.TextXAlignment = Enum.TextXAlignment.Left
+Logo.Parent = TopBar
+
+local Subtitle = Instance.new("TextLabel")
+Subtitle.Size = UDim2.new(0, 250, 0, 20)
+Subtitle.Position = UDim2.new(0, 28, 0, 45)
+Subtitle.BackgroundTransparency = 1
+Subtitle.Text = "RAYFIED STYLE"
+Subtitle.TextColor3 = Color3.fromRGB(120, 180, 255)
+Subtitle.Font = Enum.Font.GothamBold
+Subtitle.TextSize = 11
+Subtitle.TextXAlignment = Enum.TextXAlignment.Left
+Subtitle.Parent = TopBar
+
+--// Left Navigation
+local Sidebar = Instance.new("Frame")
+Sidebar.Size = UDim2.new(0, 190, 1, -70)
+Sidebar.Position = UDim2.new(0, 0, 0, 70)
+Sidebar.BackgroundColor3 = Color3.fromRGB(5, 10, 20)
+Sidebar.BorderSizePixel = 0
+Sidebar.Parent = Main
+
+local NavLayout = Instance.new("UIListLayout")
+NavLayout.Padding = UDim.new(0, 8)
+NavLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+NavLayout.SortOrder = Enum.SortOrder.LayoutOrder
+NavLayout.Parent = Sidebar
+
+local NavPadding = Instance.new("UIPadding")
+NavPadding.PaddingTop = UDim.new(0, 20)
+NavPadding.Parent = Sidebar
+
+local function createNavButton(text)
+    local Button = Instance.new("TextButton")
+    Button.Size = UDim2.new(0, 160, 0, 42)
+    Button.BackgroundColor3 = Color3.fromRGB(12, 24, 44)
+    Button.Text = text
+    Button.TextColor3 = Color3.fromRGB(180, 215, 255)
+    Button.Font = Enum.Font.GothamSemibold
+    Button.TextSize = 14
+    Button.BorderSizePixel = 0
+    Button.AutoButtonColor = false
+    Button.Parent = Sidebar
+
+    local Corner = Instance.new("UICorner")
+    Corner.CornerRadius = UDim.new(0, 8)
+    Corner.Parent = Button
+
+    local Stroke = Instance.new("UIStroke")
+    Stroke.Color = Color3.fromRGB(20, 70, 130)
+    Stroke.Thickness = 1
+    Stroke.Parent = Button
+
+    Button.MouseEnter:Connect(function()
+        Button.BackgroundColor3 = Color3.fromRGB(15, 65, 125)
+        Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    end)
+
+    Button.MouseLeave:Connect(function()
+        Button.BackgroundColor3 = Color3.fromRGB(12, 24, 44)
+        Button.TextColor3 = Color3.fromRGB(180, 215, 255)
+    end)
+
+    return Button
+end
+
+createNavButton("⌂   Home")
+createNavButton("⚙   Main")
+createNavButton("✦   Features")
+createNavButton("◆   Display")
+createNavButton("★   Misc")
+createNavButton("☷   Settings")
+
+--// Content Area
+local Content = Instance.new("Frame")
+Content.Size = UDim2.new(1, -210, 1, -90)
+Content.Position = UDim2.new(0, 205, 0, 80)
+Content.BackgroundTransparency = 1
+Content.Parent = Main
+
+--// Welcome Display
+local Welcome = Instance.new("TextLabel")
+Welcome.Size = UDim2.new(1, -20, 0, 60)
+Welcome.BackgroundTransparency = 1
+Welcome.Text = "WELCOME TO JUNIX HUB"
+Welcome.TextColor3 = Color3.fromRGB(230, 245, 255)
+Welcome.Font = Enum.Font.GothamBlack
+Welcome.TextSize = 26
+Welcome.TextXAlignment = Enum.TextXAlignment.Left
+Welcome.Parent = Content
+
+local Description = Instance.new("TextLabel")
+Description.Size = UDim2.new(1, -20, 0, 40)
+Description.Position = UDim2.new(0, 0, 0, 48)
+Description.BackgroundTransparency = 1
+Description.Text = "A clean Rayfied-style interface designed for JUNIX HUB."
+Description.TextColor3 = Color3.fromRGB(120, 155, 195)
+Description.Font = Enum.Font.Gotham
+Description.TextSize = 13
+Description.TextXAlignment = Enum.TextXAlignment.Left
+Description.Parent = Content
+
+--// Feature Cards
+local function createCard(title, description, position)
+    local Card = Instance.new("Frame")
+    Card.Size = UDim2.new(0, 250, 0, 100)
+    Card.Position = position
+    Card.BackgroundColor3 = Color3.fromRGB(10, 20, 38)
+    Card.BorderSizePixel = 0
+    Card.Parent = Content
+
+    local Corner = Instance.new("UICorner")
+    Corner.CornerRadius = UDim.new(0, 10)
+    Corner.Parent = Card
+
+    local Stroke = Instance.new("UIStroke")
+    Stroke.Color = Color3.fromRGB(15, 85, 155)
+    Stroke.Thickness = 1
+    Stroke.Parent = Card
+
+    local Title = Instance.new("TextLabel")
+    Title.Size = UDim2.new(1, -25, 0, 30)
+    Title.Position = UDim2.new(0, 15, 0, 15)
+    Title.BackgroundTransparency = 1
+    Title.Text = title
+    Title.TextColor3 = Color3.fromRGB(50, 175, 255)
+    Title.Font = Enum.Font.GothamBold
+    Title.TextSize = 17
+    Title.TextXAlignment = Enum.TextXAlignment.Left
+    Title.Parent = Card
+
+    local Desc = Instance.new("TextLabel")
+    Desc.Size = UDim2.new(1, -25, 0, 35)
+    Desc.Position = UDim2.new(0, 15, 0, 48)
+    Desc.BackgroundTransparency = 1
+    Desc.Text = description
+    Desc.TextColor3 = Color3.fromRGB(145, 170, 200)
+    Desc.Font = Enum.Font.Gotham
+    Desc.TextSize = 12
+    Desc.TextXAlignment = Enum.TextXAlignment.Left
+    Desc.Parent = Card
+end
+
+createCard(
+    "JUNIX HUB",
+    "Rayfied-style interface",
+    UDim2.new(0, 0, 0, 105)
+)
+
+createCard(
+    "DISPLAY",
+    "Clean and modern layout",
+    UDim2.new(0, 270, 0, 105)
+)
+
+createCard(
+    "DESIGN",
+    "Neon blue cyber aesthetic",
+    UDim2.new(0, 0, 0, 220)
+)
+
+createCard(
+    "STATUS",
+    "JUNIX HUB • READY",
+    UDim2.new(0, 270, 0, 220)
+)
+
+--// Bottom Status
+local Status = Instance.new("TextLabel")
+Status.Size = UDim2.new(1, -20, 0, 30)
+Status.Position = UDim2.new(0, 0, 1, -35)
+Status.BackgroundTransparency = 1
+Status.Text = "●  JUNIX HUB     |     RAYFIED STYLE     |     READY"
+Status.TextColor3 = Color3.fromRGB(50, 190, 255)
+Status.Font = Enum.Font.GothamSemibold
+Status.TextSize = 12
+Status.TextXAlignment = Enum.TextXAlignment.Left
+Status.Parent = Content
+
+--// Subtle Glow
+local Glow = Instance.new("Frame")
+Glow.Size = UDim2.new(0, 4, 1, 0)
+Glow.Position = UDim2.new(0, 0, 0, 0)
+Glow.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+Glow.BorderSizePixel = 0
+Glow.Parent = Main
+
+local GlowCorner = Instance.new("UICorner")
+GlowCorner.CornerRadius = UDim.new(0, 4)
+GlowCorner.Parent = Glow
+
+print("JUNIX HUB GUI loaded.")
